@@ -1,0 +1,12 @@
+[08-Dec-2024 14:28:55 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'meubai43_petrolinapiscinas'@'p3plzcpnl504997.prod.phx3.secureserver.net' (using password: YES) in /home/ygbumqcbolul/public_html/petrolinapiscinas.com.br/app/office/conexao.php:6
+Stack trace:
+#0 /home/ygbumqcbolul/public_html/petrolinapiscinas.com.br/app/office/conexao.php(6): mysqli_connect()
+#1 /home/ygbumqcbolul/public_html/petrolinapiscinas.com.br/app/office/login.php(8): include('/home/ygbumqcbo...')
+#2 {main}
+  thrown in /home/ygbumqcbolul/public_html/petrolinapiscinas.com.br/app/office/conexao.php on line 6
+[08-Dec-2024 14:29:09 UTC] PHP Fatal error:  Uncaught mysqli_sql_exception: Access denied for user 'meubai43_petrolinapiscinas'@'p3plzcpnl504997.prod.phx3.secureserver.net' (using password: YES) in /home/ygbumqcbolul/public_html/petrolinapiscinas.com.br/app/office/conexao.php:6
+Stack trace:
+#0 /home/ygbumqcbolul/public_html/petrolinapiscinas.com.br/app/office/conexao.php(6): mysqli_connect()
+#1 /home/ygbumqcbolul/public_html/petrolinapiscinas.com.br/app/office/login.php(8): include('/home/ygbumqcbo...')
+#2 {main}
+  thrown in /home/ygbumqcbolul/public_html/petrolinapiscinas.com.br/app/office/conexao.php on line 6

@@ -1,0 +1,15 @@
+{
+    "name": "tiosam/tcomm",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Cícero Antônio da Silva",
+            "email": "ciceroantonio.dev@gmail.com"
+        }
+    ],
+    "require": {}
+}
