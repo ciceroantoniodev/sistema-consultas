@@ -1,10 +1,7 @@
 <?php
-$hostname66 = '66.165.225.82';
-$usarname66 = 'resguardarsms';
-$senha66    = 'voucomeravovozinha123!@#';
-$tb_banco66 = 'cicero';
+$server = "localhost";
+$user = "root";
+$senha = "123456";
+$banco = "sistema_consultas";
 
-defined('DB_SERVER_66') ? null : define("DB_SERVER_66", $hostname66);
-defined('DB_USER_66') ? null : define("DB_USER_66", $usarname66);
-defined('DB_PASS_66') ? null : define("DB_PASS_66", $senha66);
-defined('DB_NAME_66') ? null : define("DB_NAME_66", $tb_banco66);
+$conn = mysqli_connect("$server", "$user", "$senha", "$banco");

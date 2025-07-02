@@ -6,46 +6,37 @@ body {
 }
 
 .main {
+	background: url(../images/bg-login.jpg) no-repeat center center;
 	display: flex;
-	flex-direction: column;
 	height: 100vh;
 }
 
 .header {
 	align-items: center;
-	background: #f8f8f8;
 	display: flex;
-	flex-direction: column;
-	height: 120px;
+	flex-direction: column;	
+	height: 100%;
 	justify-content: center;
+	width: 60%;
 }
 
 .header > h2 {
-	font-size: 52px;
+	color: #ffffff;
+	font-size: 72px;
 	font-weight: bold;
 	margin: 0px;
 	padding: 0px;
-}
-
-.header > h3 {
-	font-size: 42px;
+	text-align: center;
 }
 
 .area {
 	align-items: center;
-	display: flex;
-	flex: 1;
-	height: auto;
-	justify-content: center;
-}
-
-.footer {
-	align-items: center;
-	background: #f8f8f8;
+	background: rgba(255, 255, 255, 0.5);
+	border-left: #b8cafa 10px solid;
 	display: flex;
 	flex-direction: column;
-	font-size: 32px;
-	height: 80px;
+	flex: 1;
+	height: 100%;
 	justify-content: center;
 }
 

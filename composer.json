@@ -1,5 +1,5 @@
 {
-    "name": "tiosam/tcomm",
+    "name": "Sistema de Gestão de Consultórios",
     "autoload": {
         "psr-4": {
             "app\\": "app/"

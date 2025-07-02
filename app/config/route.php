@@ -3,7 +3,7 @@ $vUrl = isset($_GET["url"]) ? strtolower($_GET["url"]) : "";
 
 //include "app/lib/dados.php";
 
-$vLocalhost = "http://localhost/tcomm";
+$vLocalhost = "http://localhost/sistema-consultas";
 
 define("URL", $vLocalhost);
 
@@ -37,8 +37,8 @@ if ($vController === "office"){
 			$includeController = "app/controllers/UsuariosController.php";
 			break;
 
-		case "tarifas":
-			$includeController = "app/controllers/TarifasController.php";
+		case "pacientes":
+			$includeController = "app/controllers/PacientesController.php";
 			break;
 
 		case "login":
@@ -49,12 +49,16 @@ if ($vController === "office"){
 			$includeController = "app/controllers/LogoutController.php";
 			break;
 
-		case "trocar_senha":
-			$includeController = "app/controllers/TrocarSenhaController.php";
+		case "agendamento":
+			$includeController = "app/controllers/AgendamentoController.php";
 			break;
 
-		case "comprar":
-			$includeController = "app/controllers/ComprarController.php";
+		case "profissionais":
+			$includeController = "app/controllers/ProfissionaisController.php";
+			break;
+
+		case "especialidades";
+			$includeController = "app/controllers/EspecialidadesController.php";
 			break;
 
 		default:

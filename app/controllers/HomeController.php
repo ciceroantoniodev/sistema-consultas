@@ -8,13 +8,9 @@ $dados = explode("|", $codigo);
 
 $dados = [
     "Id" => (int)$dados[0], 
-    "Nome" => $dados[1], 
-    "Email" => $dados[2], 
-    "Mestre" => $dados[3], 
-    "SuperMestre" => $dados[4], 
-    "Revenda" => (int)$dados[5]
+    "Nome" => $dados[1]
 ];
 
-include_once(LOCAL . "/app/config/includes/funct.php");
+include_once(LOCAL . "/app/config/includes/funcoes.php");
 
 include_once "app/views/office/home.php";
