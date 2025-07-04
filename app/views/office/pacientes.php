@@ -55,9 +55,9 @@
                                         ?>
                                         <tr>
                                             <td><?=$dado['nome']?></td>
-                                            <td><?=$dado['data_nascimento']?></td>
+                                            <td><?=date("d/m/Y", strtotime($dado['data_nascimento']))?></td>
                                             <td><?=$dado['telefone']?></td>
-                                            <td><?=$dado['cidade']?></td>
+                                            <td><?=$dado['cidade'] . '/' . $dado['estado']?></td>
                                         </tr>
                                         <?php 
                                     } 

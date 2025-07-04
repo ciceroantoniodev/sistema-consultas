@@ -4,10 +4,26 @@ Use Exception;
 
 require_once( LOCAL . '/app/config/includes/connection.php');
 
+$pacientes = [];
+$profissionais = [];
 $dados = [];
 
-if ($vParameters==="novo") {
+if ($acao==="consultar" || $acao==="alterar") {
     
+  $agenda = $conn->query("SELECT agenda.*, pacientes.nome FROM agenda INNER JOIN pacientes ON agenda.id_paciente=pacientes.id WHERE agenda.id=$codigo_agenda");
+      
+    $dados = mysqli_fetch_array($agenda);
+
+  mysqli_free_result($agenda);
+
+  $query = $conn->query("SELECT * FROM profissionais ORDER BY nome");
+      
+    while ($re = mysqli_fetch_assoc($query)) {
+      $profissionais[] = $re;
+    }
+
+  mysqli_free_result($query);
+
 
 } else if ($vParameters==="salvar") {
     
@@ -15,50 +31,116 @@ if ($vParameters==="novo") {
   
   $vAlerta = "";
 
-  if (empty($dadosForm['nome'])) { $vAlerta .= "<div>O campo <strong>Nome do Paciente</strong> n&atilde;o pode ser vazio.</div>"; }
-  if (empty($dadosForm['sexo'])) { $vAlerta .= "<div>O campo <strong>Sexo</strong> n&atilde;o pode ser vazio.</div>"; }
-  if (empty($dadosForm['mae'])) { $vAlerta .= "<div>O campo <strong>Nome da M&atilde;e</strong> n&atilde;o pode ser vazio.</div>"; }
-  if (empty($dadosForm['data_nasc'])) { $vAlerta .= "<div>o Campo <strong>Data de Nascimento</strong> n&atilde;o pode ser vazio.</div>"; }
+  if ($dadosForm['acao']==="novo") {
+    if (empty($dadosForm['paciente'])) { $vAlerta .= "<div>O campo <strong>Nome do Paciente</strong> n&atilde;o pode ser vazio.</div>"; }
+
+  }
+
+  if (empty($dadosForm['data_agendamento'])) { $vAlerta .= "<div>O campo <strong>Data do Agendamento</strong> n&atilde;o pode ser vazio.</div>"; }
+  if (empty($dadosForm['hora_agendamento'])) { $vAlerta .= "<div>O campo <strong>Hor&aacute;rio do Agendamento</strong> n&atilde;o pode ser vazio.</div>"; }
+  if (empty($dadosForm['profissional'])) { $vAlerta .= "<div>o Campo <strong>Profissional Médico</strong> n&atilde;o pode ser vazio.</div>"; }
+  if (empty($dadosForm['agendamento_tipo'])) { $vAlerta .= "<div>o Campo <strong>Agendamento do Tipo</strong> n&atilde;o pode ser vazio.</div>"; }
 
   $vData = date("Y-m-d H:i:s");
 
   if (empty($vAlerta)) {
-    $valores = "'" . $dadosForm['nome'] . "',";
-    $valores .= "'" . date("Y-m-d", strtotime($dadosForm['data_nasc'])) . "',";
-    $valores .= "'" . $dadosForm['sexo'] . "',";
-    $valores .= "'" . $dadosForm['cpf'] . "',";
-    $valores .= "'" . $dadosForm['rg'] . "',";
-    $valores .= "'" . $dadosForm['mae'] . "',";
-    $valores .= "'" . $dadosForm['pai'] . "',";
-    $valores .= "'" . $dadosForm['endereco'] . "',";
-    $valores .= "'" . $dadosForm['bairro'] . "',";
-    $valores .= "'" . $dadosForm['cidade'] . "',";
-    $valores .= "'" . $dadosForm['estado'] . "',";
-    $valores .= "'" . $dadosForm['cep'] . "',";
-    $valores .= "'" . $dadosForm['fone'] . "',";
-    $valores .= "'" . $dadosForm['status'] . "',";
-    $valores .= "'" . $vData . "'";
 
-    $campos = "nome, data_nascimento, sexo, cpf, rg, nome_mae, nome_pai, endereco, bairro, cidade, estado, cep, telefone, status, data_cad";
+    if ($dadosForm['acao']==="novo") {
 
-    try{
-      
-      $conn->query("INSERT INTO pacientes ($campos) VALUES ($valores)");
+      $valores = "0" . $dadosForm['paciente'] . ",";
+      $valores .= "0" . $dadosForm['profissional'] . ",";
+      $valores .= "'" . date("Y-m-d", strtotime($dadosForm['data_agendamento'])) . "',";
+      $valores .= "'" . date("H:i:s", strtotime($dadosForm['hora_agendamento'])) . "',";
+      $valores .= "'" . $dadosForm['agendamento_tipo'] . "',";
+      $valores .= "'" . $dadosForm['obs'] . "',";
+      $valores .= "'aberto',";
+      $valores .= "'" . $vData . "'";
 
-    } catch (Exception $e) {
-      $vAlerta = $e->getMessage();
+      $campos = "id_paciente, id_profissional, data_agendamento, hora_agendamento, tipo_agendamento, obs, status, data_cad";
+
+      try{
+        
+        $conn->query("INSERT INTO agenda ($campos) VALUES ($valores)");
+
+        $agenda = $conn->query("SELECT id FROM agenda 
+                  WHERE id_paciente=" . (int)$dadosForm['paciente'] . " 
+                  AND id_profissional=" . (int)$dadosForm['profissional'] . " 
+                  AND tipo_agendamento='" . $dadosForm['agendamento_tipo'] . "' 
+                  AND data_cad='" .  $vData . "'"
+              );
+            
+          $re = mysqli_fetch_array($agenda);
+          $codigo_agenda = $re['id'];
+          
+        mysqli_free_result($agenda);
+    
+        
+      } catch (Exception $e) {
+        $vAlerta = $e->getMessage();
+
+      }
+
+
+    } else {
+
+      try{
+        
+        $where = " WHERE id=" . $dadosForm['id_agenda'];
+
+        $sql = "UPDATE agenda SET 
+            id_profissional=0" . $dadosForm['profissional'] . ", 
+            data_agendamento='" . date("Y-m-d", strtotime($dadosForm['data_agendamento'])) . "', 
+            hora_agendamento='" . date("H:i:s", strtotime($dadosForm['hora_agendamento'])) . "', 
+            tipo_agendamento='" . $dadosForm['agendamento_tipo'] . "', 
+            obs='" . $dadosForm['obs'] . "', 
+            status='" . $dadosForm['status'] . "' 
+            $where";
+
+        $conn->query($sql);
+        
+        $codigo_agenda =  $dadosForm['id_agenda'];
+
+
+      } catch (Exception $e) {
+        $vAlerta = $e->getMessage();
+
+      }
 
     }
+
+    
+    $agenda = $conn->query("SELECT agenda.*, pacientes.nome FROM agenda INNER JOIN pacientes ON agenda.id_paciente=pacientes.id WHERE agenda.id=$codigo_agenda");
+        
+      $dados = mysqli_fetch_array($agenda);
+
+    mysqli_free_result($agenda);
+
+    $query = $conn->query("SELECT * FROM profissionais ORDER BY nome");
+        
+      while ($re = mysqli_fetch_assoc($query)) {
+        $profissionais[] = $re;
+      }
+
+    mysqli_free_result($query);
+
+
   }
 
 
 } else {
+
   $query = $conn->query("SELECT * FROM pacientes ORDER BY nome");
       
     while ($re = mysqli_fetch_assoc($query)) {
-      
-      $dados[] = $re;
+      $pacientes[] = $re;
+    }
 
+  mysqli_free_result($query);
+
+  $query = $conn->query("SELECT * FROM profissionais ORDER BY nome");
+      
+    while ($re = mysqli_fetch_assoc($query)) {
+      $profissionais[] = $re;
     }
 
   mysqli_free_result($query);

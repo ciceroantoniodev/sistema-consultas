@@ -49,6 +49,10 @@ if ($vController === "office"){
 			$includeController = "app/controllers/LogoutController.php";
 			break;
 
+		case "agenda":
+			$includeController = "app/controllers/AgendaController.php";
+			break;
+
 		case "agendamento":
 			$includeController = "app/controllers/AgendamentoController.php";
 			break;
