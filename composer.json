@@ -1,5 +1,5 @@
 {
-    "name": "Sistema de Gestão de Consultórios",
+    "name": "Sistema Gerenciador de Consultas",
     "autoload": {
         "psr-4": {
             "app\\": "app/"

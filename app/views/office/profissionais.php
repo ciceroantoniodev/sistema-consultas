@@ -55,11 +55,31 @@
                                     foreach ($dados AS $dado) { 
                                         ?>
                                         <tr>
-                                            <td><?=$dado['nome']?></td>
-                                            <td><?=($dado['sexo']==="M" ? "Masculino" : "Feminino")?></td>
-                                            <td><?=$dado['especialidade']?></td>
-                                            <td><?=$dado['documento_tipo'] . '-' . $dado['documento_numero']?></td>
-                                            <td><?=date("d/m/Y", strtotime($dado['data_nascimento']))?></td>
+                                            <td>
+                                                <a href="<?=URL?>/Office/Profissionais/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=$dado['nome']?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?=URL?>/Office/Profissionais/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=($dado['sexo']==="M" ? "Masculino" : "Feminino")?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?=URL?>/Office/Profissionais/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=$dado['especialidade']?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?=URL?>/Office/Profissionais/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=$dado['documento_tipo'] . '-' . $dado['documento_numero']?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?=URL?>/Office/Profissionais/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=date("d/m/Y", strtotime($dado['data_nascimento']))?>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <?php 
                                     } 

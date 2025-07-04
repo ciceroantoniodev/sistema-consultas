@@ -65,6 +65,10 @@ if ($vController === "office"){
 			$includeController = "app/controllers/EspecialidadesController.php";
 			break;
 
+		case "trocar_senha";
+			$includeController = "app/controllers/TrocarSenhaController.php";
+			break;
+
 		default:
 			$includeController = "app/controllers/HomeController.php";
 			break;

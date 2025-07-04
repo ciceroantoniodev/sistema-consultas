@@ -24,7 +24,8 @@
                         <a href="<?=URL?>/Office/Inicio" class="links"><span>INÍCIO</span></a> | 
                         <a href="<?=URL?>/Office/Profissionais" class="links"><span>PROFISSIONAIS</span></a> 
                     </div>
-                    <h2>Cadastrar Novo Profissional</h2><br>
+                    <h2><?=($acao==="consultar" ? 'Consultar Dados do Profissional' : ($acao==="alterar" ? 'Atualizar Dados do Profissional' : 'Cadastrar Novo Profissional'))?></h2><br>
+
                 </div>
             </div>  
             <div class="row">
@@ -32,11 +33,12 @@
                     
                     <form method="post" action="<?=URL?>/Office/Profissionais/Salvar">
                         <input type="hidden" id="acao" name="acao" value="<?=$acao?>">
+                        <input type="hidden" id="id_profissional" name="id_profissional" value="<?=$id_profissional?>">
 
                         <?php 
                         if ($acao==="consultar" || $acao==="alterar") {
                             ?>
-                            <h6 style="margin-bottom: 20px">Código: <span class="text-info"><?=$dados['codigo']?></span></h6>
+                            <h6 style="margin-bottom: 20px">Código: <span class="text-info"><?=str_pad($id_profissional, 4, "0", STR_PAD_LEFT)?></span></h6>
                             <?php
                         }
                         ?>
@@ -54,7 +56,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <label for="data_nasc" class="form-label">Data de Nascimento:</label>
-                                            <input type="date" id="data_nasc" name="data_nasc" class="form-control" value="<?=(isset($dadosForm['data_nasc']) ? $dadosForm['data_nasc'] : '')?>" />
+                                            <input type="date" id="data_nasc" name="data_nasc" class="form-control" value="<?=(isset($dadosForm['data_nascimento']) ? $dadosForm['data_nascimento'] : '')?>" />
                                         </div>
                                         <div class="col-md-6">
                                             <label for="sexo" class="form-label">Sexo:</label>
@@ -78,7 +80,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label for="documento_numero" class="form-label">N&uacute;mero do Documento:</label>
-                                            <input type="text" id="documento_numero" name="documento_numero" class="form-control" value="<?=(isset($dadosForm['data_nasc']) ? $dadosForm['data_nasc'] : '')?>" />
+                                            <input type="text" id="documento_numero" name="documento_numero" class="form-control" value="<?=(isset($dadosForm['documento_numero']) ? $dadosForm['documento_numero'] : '')?>" />
                                         </div>
                                     </div>                    
                                     <div class="row mb-3">
@@ -88,7 +90,7 @@
                                                 <option value="">...</option>
                                                 <?php 
                                                 foreach ($especialidades AS $dado) {
-                                                    echo '<option value="' . $dado['Id'] . '">' . $dado['Especialidade'] . '</option>';
+                                                    echo '<option value="' . $dado['Id'] . '"' . ($dado['Id']===$dadosForm['id_especialidade'] ? ' selected' : '') . '>' . $dado['Especialidade'] . '</option>';
                                                 }
                                                 ?>
                                             </select>
@@ -111,17 +113,14 @@
                                 <?php
                                 if ($acao==="consultar") {
                                     ?>
-                                    <a href="<?=URL?>/Office/Usuarios/Editar&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>&cod=<?=codigoHash($codigo_usuario)?>&acao=alterar" class="btn btn-primary">Alterar Dados</a>
-                                    <button type="button" class="btn btn-danger" >Bloquear</button>
-                                    <button type="button" class="btn btn-warning" >Resetar Senha</button>
-                                    <button type="button" class="btn btn-info" >Reenviar Validação</button>
-                                    <a href="<?=URL?>/Office/Usuarios&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>" class="btn btn-secondary">Voltar</a>
+                                    <a href="<?=URL?>/Office/Profissionais/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($id_profissional)?>&acao=alterar" class="btn btn-primary">Alterar Dados</a>
+                                    <a href="<?=URL?>/Office/Profissionais&idu=<?=codigoHash($id_usuario)?>" class="btn btn-secondary">Voltar</a>
                                     <?php
 
                                 } else if($acao==="novo" || $acao==="alterar") {
                                     ?>
                                     <input type="submit" class="btn btn-success btn-lg" value="Salvar Dados"/>
-                                    <a href="<?=URL?>/Office/Usuarios&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>" class="btn btn-secondary btn-lg">Voltar</a>
+                                    <a href="<?=URL?>/Office/Profissionais&idu=<?=codigoHash($id_usuario)?>" class="btn btn-secondary btn-lg">Voltar</a>
                                     <?php
                                 }
                                 ?>

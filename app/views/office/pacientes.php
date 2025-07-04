@@ -54,10 +54,26 @@
                                     foreach ($dados AS $dado) { 
                                         ?>
                                         <tr>
-                                            <td><?=$dado['nome']?></td>
-                                            <td><?=date("d/m/Y", strtotime($dado['data_nascimento']))?></td>
-                                            <td><?=$dado['telefone']?></td>
-                                            <td><?=$dado['cidade'] . '/' . $dado['estado']?></td>
+                                            <td>
+                                                <a href="<?=URL?>/office/Pacientes/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=$dado['nome']?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?=URL?>/office/Pacientes/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=date("d/m/Y", strtotime($dado['data_nascimento']))?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?=URL?>/office/Pacientes/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=$dado['telefone']?>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="<?=URL?>/office/Pacientes/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=$dado['cidade'] . '/' . $dado['estado']?>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <?php 
                                     } 

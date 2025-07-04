@@ -9,6 +9,23 @@ $dados = [];
 if ($vParameters==="novo") {
     
 
+} else if ($vParameters==="editar") {
+
+    $dadosForm = [];
+
+    $query = $conn->query("SELECT * FROM especialidades WHERE id=$id_especialidade");
+      
+      $re = mysqli_fetch_array($query);
+      
+      if (!empty($re)) {
+
+        $dadosForm = $re;
+
+      }
+
+    mysqli_free_result($query);
+    
+    
 } else if ($vParameters==="salvar") {
     
     $dadosForm = $_POST;
@@ -20,18 +37,33 @@ if ($vParameters==="novo") {
     $vData = date("Y-m-d H:i:s");
 
     if (empty($vAlerta)) {
-        $valores = "'" . $dadosForm['especialidade'] . "',";
-        $valores .= "'',";
-        $valores .= "'" . $vData . "'";
 
-        $campos = "especialidade, status, data_cad";
+        if ($dadosForm['acao']==="novo") {
+            $valores = "'" . $dadosForm['especialidade'] . "',";
+            $valores .= "'',";
+            $valores .= "'" . $vData . "'";
 
-        try{
-        
-            $conn->query("INSERT INTO especialidades ($campos) VALUES ($valores)");
+            $campos = "especialidade, status, data_cad";
 
-        } catch (Exception $e) {
-            $vAlerta = $e->getMessage();
+            try{
+            
+                $conn->query("INSERT INTO especialidades ($campos) VALUES ($valores)");
+
+            } catch (Exception $e) {
+                $vAlerta = $e->getMessage();
+
+            }
+
+
+        } else {
+
+            $where = " WHERE id=" . $dadosForm['id_especialidade'];
+
+            $sql = "UPDATE especialidades SET especialidade='" . $dadosForm['especialidade'] . "' $where";
+
+            $conn->query($sql);
+                
+            $id_especialidade =  $dadosForm['id_especialidade'];
 
         }
     }

@@ -51,7 +51,11 @@
                                     foreach ($dados AS $dado) { 
                                         ?>
                                         <tr>
-                                            <td><?=$dado['especialidade']?></td>
+                                            <td>
+                                                <a href="<?=URL?>/Office/Especialidades/Editar&idu=<?=codigoHash($id_usuario)?>&ide=<?=codigoHash($dado['id'])?>&acao=consultar" class="links">
+                                                    <?=$dado['especialidade']?>
+                                                </a>
+                                            </td>
                                         </tr>
                                         <?php 
                                     } 

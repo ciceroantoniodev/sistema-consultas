@@ -30,22 +30,33 @@
             <div class="row">
                 <div class="col-sm-6">
                     <br>
-                    <form role="form" data-toggle="validator" method="post" id="form_editarSenha">
-                        <input value="editaSenhaUser" name="action" hidden>
+                    <form method="post" action="<?=URL?>/Office/Trocar_Senha/Salvar">
+                        <input type="hidden" id="acao" name="acao" value="<?=$acao?>">
+                        <input type="hidden" id="id_usuario" name="id_usuario" value="<?=$id_usuario?>">
+                        <input type="hidden" id="senha_atual" name="db_senha_atual" value="<?=(isset($dados['senha']) ? $dados['senha'] : '')?>">
+
                         <div class="form-group mb-3">
                             <label for="tb_senha_atual" class="form-label">Senha Atual:</label>
-                            <input name="tb_senha_atual" type="password" maxlength="15" id="tb_senha_atual" class="form-control" required value="">
+                            <input name="senha_atual" type="password" maxlength="15" id="tb_senha_atual" class="form-control" required value="<?=(isset($dadosForm['senha_atual']) ? $dadosForm['senha_atual'] : '')?>">
                         </div>
                         <div class="form-group mb-3">
                             <label for="tb_nova_senha" class="form-label">Nova Senha:</label>
-                            <input name="tb_nova_senha" type="password" maxlength="15" id="tb_nova_senha" class="form-control" required value="" data-toggle="validator">
+                            <input name="nova_senha" type="password" maxlength="15" id="tb_nova_senha" class="form-control" required value="<?=(isset($dadosForm['nova_senha']) ? $dadosForm['nova_senha'] : '')?>" data-toggle="validator">
                         </div>
                         <div class="form-group mb-3">
                             <label for="tb_conf_senha" class="form-label">Confirme a Senha:</label>
-                            <input name="tb_conf_senha" type="password" maxlength="15" id="tb_conf_senha" class="form-control" required value="" data-match="#tb_nova_senha" data-match-error="Senha não combinam">
+                            <input name="confirme_senha" type="password" maxlength="15" id="tb_conf_senha" class="form-control" required value="<?=(isset($dadosForm['confirme_senha']) ? $dadosForm['confirme_senha'] : '')?>" data-match="#tb_nova_senha" data-match-error="Senha não combinam">
                         </div>
 
                         <div class="mb-3">
+                            <?php 
+                            if (isset($vAlerta) && !empty($vAlerta)) {
+                                echo '<div class="alert alert-danger" role="alert">' . $vAlerta . '</div>';
+                            } else if ($salvo) {
+                                echo '<div class="alert alert-success" role="alert">Senha Atualizada Com Sucesso!</div>';
+                            }
+                            ?>
+                            
                             <button type="submit" class="btn btn-success btn-lg" style="width: 150px">Salvar</button>
                         </div>
                     </form>

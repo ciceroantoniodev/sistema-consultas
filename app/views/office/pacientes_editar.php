@@ -24,7 +24,8 @@
                         <a href="<?=URL?>/Office/Inicio" class="links"><span>INÍCIO</span></a> | 
                         <a href="<?=URL?>/Office/Pacientes" class="links"><span>PACIENTES</span></a> 
                     </div>
-                    <h2>Cadastrar Novo Paciente</h2><br>
+                    <h2><?=($acao==="consultar" ? 'Consultar Dados do Paciente' : ($acao==="alterar" ? 'Atualizar Dados do Paciente' : 'Cadastrar Novo Paciente'))?></h2><br>
+
                 </div>
             </div>  
             <div class="row">
@@ -32,11 +33,12 @@
                     
                     <form method="post" action="<?=URL?>/Office/Pacientes/Salvar">
                         <input type="hidden" id="acao" name="acao" value="<?=$acao?>">
+                        <input type="hidden" id="id_paciente" name="id_paciente" value="<?=$id_paciente?>">
 
                         <?php 
                         if ($acao==="consultar" || $acao==="alterar") {
                             ?>
-                            <h6 style="margin-bottom: 20px">Código: <span class="text-info"><?=$dados['codigo']?></span></h6>
+                            <h6 style="margin-bottom: 20px">Código: <span class="text-info"><?=str_pad($id_paciente, 4, "0", STR_PAD_LEFT)?></span></h6>
                             <?php
                         }
                         ?>
@@ -64,7 +66,7 @@
                                     <div class="row mb-3">
                                         <div class="col">
                                             <label for="mae" class="form-label">Nome da Mãe:</label>
-                                            <input type="text" id="mae" name="mae" class="form-control" value="<?=(isset($dadosForm['mae']) ? $dadosForm['mae'] : '')?>"/>
+                                            <input type="text" id="mae" name="mae" class="form-control" value="<?=(isset($dadosForm['nome_mae']) ? $dadosForm['nome_mae'] : '')?>"/>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -80,47 +82,52 @@
                                 </fieldset>
                             </div>
                             <div class="col-md-6">
-                                <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <label for="data_nasc" class="form-label">Data de Nascimento:</label>
-                                        <input type="date" id="data_nasc" name="data_nasc" class="form-control" value="<?=(isset($dadosForm['data_nasc']) ? $dadosForm['data_nasc'] : '')?>" />
+
+                                <fieldset<?=($acao==="consultar" ? " disabled" : "")?>>
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label for="data_nasc" class="form-label">Data de Nascimento:</label>
+                                            <input type="date" id="data_nasc" name="data_nasc" class="form-control" value="<?=(isset($dadosForm['data_nascimento']) ? $dadosForm['data_nascimento'] : '')?>" />
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label for="sexo" class="form-label">Sexo:</label>
+                                            <select name="sexo" id="sexo" class="form-select">
+                                                <option value="">...</option>
+                                                <option value="M"<?=(isset($dadosForm['sexo']) && $dadosForm['sexo']==="M" ? ' selected' : '')?>>MASCULINO</option>
+                                                <option value="F"<?=(isset($dadosForm['sexo']) && $dadosForm['sexo']==="F" ? ' selected' : '')?>>FEMININO</option>
+                                                <option value="O"<?=(isset($dadosForm['sexo']) && $dadosForm['sexo']==="O" ? ' selected' : '')?>>OUTRO</option>
+                                            </select>
+                                        </div>
+                                    </div>                    
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label for="fone" class="form-label">Telefones:</label>
+                                            <input type="text" id="fone" name="fone" class="form-control" value="<?=(isset($dadosForm['telefone']) ? $dadosForm['telefone'] : '')?>"/>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label for="sexo" class="form-label">Sexo:</label>
-                                        <select name="sexo" id="sexo" class="form-select">
-                                            <option value="">...</option>
-                                            <option value="M"<?=(isset($dadosForm['sexo']) && $dadosForm['sexo']==="M" ? ' selected' : '')?>>MASCULINO</option>
-                                            <option value="F"<?=(isset($dadosForm['sexo']) && $dadosForm['sexo']==="F" ? ' selected' : '')?>>FEMININO</option>
-                                            <option value="O"<?=(isset($dadosForm['sexo']) && $dadosForm['sexo']==="O" ? ' selected' : '')?>>OUTRO</option>
-                                        </select>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label for="pai" class="form-label">Nome da Pai:</label>
+                                            <input type="text" id="pai" name="pai" class="form-control" value="<?=(isset($dadosForm['nome_pai']) ? $dadosForm['nome_pai'] : '')?>"/>
+                                        </div>
                                     </div>
-                                </div>                    
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <label for="fone" class="form-label">Telefones:</label>
-                                        <input type="text" id="fone" name="fone" class="form-control" value="<?=(isset($dadosForm['fone']) ? $dadosForm['fone'] : '')?>"/>
+                                    <div class="row mb-3">
+                                        <div class="col-md-5">
+                                            <label for="bairro" class="form-label">Bairro:</label>
+                                            <input type="text" id="bairro" name="bairro" class="form-control" value="<?=(isset($dadosForm['bairro']) ? $dadosForm['bairro'] : '')?>"/>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <label for="cidade" class="form-label">Cidade:</label>
+                                            <input type="text" id="cidade" name="cidade" class="form-control" value="<?=(isset($dadosForm['cidade']) ? $dadosForm['cidade'] : '')?>"/>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="estado" class="form-label">Estado:</label>
+                                            <input type="text" id="estado" name="estado" class="form-control" value="<?=(isset($dadosForm['estado']) ? $dadosForm['estado'] : '')?>"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <label for="pai" class="form-label">Nome da Pai:</label>
-                                        <input type="text" id="pai" name="pai" class="form-control" value="<?=(isset($dadosForm['pai']) ? $dadosForm['pai'] : '')?>"/>
-                                    </div>
-                                </div>
-                                <div class="row mb-3">
-                                    <div class="col-md-5">
-                                        <label for="bairro" class="form-label">Bairro:</label>
-                                        <input type="text" id="bairro" name="bairro" class="form-control" value="<?=(isset($dadosForm['bairro']) ? $dadosForm['bairro'] : '')?>"/>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label for="cidade" class="form-label">Cidade:</label>
-                                        <input type="text" id="cidade" name="cidade" class="form-control" value="<?=(isset($dadosForm['cidade']) ? $dadosForm['cidade'] : '')?>"/>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="estado" class="form-label">Estado:</label>
-                                        <input type="text" id="estado" name="estado" class="form-control" value="<?=(isset($dadosForm['estado']) ? $dadosForm['estado'] : '')?>"/>
-                                    </div>
-                                </div>
+                                </fieldset>
+
                             </div>
                         </div>
 
@@ -136,17 +143,14 @@
                                 <?php
                                 if ($acao==="consultar") {
                                     ?>
-                                    <a href="<?=URL?>/Office/Usuarios/Editar&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>&cod=<?=codigoHash($codigo_usuario)?>&acao=alterar" class="btn btn-primary">Alterar Dados</a>
-                                    <button type="button" class="btn btn-danger" >Bloquear</button>
-                                    <button type="button" class="btn btn-warning" >Resetar Senha</button>
-                                    <button type="button" class="btn btn-info" >Reenviar Validação</button>
-                                    <a href="<?=URL?>/Office/Usuarios&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>" class="btn btn-secondary">Voltar</a>
+                                    <a href="<?=URL?>/Office/Pacientes/Editar&idu=<?=codigoHash($id_usuario)?>&idp=<?=codigoHash($id_paciente)?>&acao=alterar" class="btn btn-primary">Alterar Dados</a>
+                                    <a href="<?=URL?>/Office/Pacientes&idu=<?=codigoHash($id_usuario)?>" class="btn btn-secondary">Voltar</a>
                                     <?php
 
                                 } else if($acao==="novo" || $acao==="alterar") {
                                     ?>
                                     <input type="submit" class="btn btn-success btn-lg" value="Salvar Dados"/>
-                                    <a href="<?=URL?>/Office/Usuarios&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>" class="btn btn-secondary btn-lg">Voltar</a>
+                                    <a href="<?=URL?>/Office/Pacientes&idu=<?=codigoHash($id_usuario)?>" class="btn btn-secondary btn-lg">Voltar</a>
                                     <?php
                                 }
                                 ?>

@@ -25,6 +25,19 @@ if (!empty($vParameters)) {
 if ($vParameters==="novo") {
     
 
+} else if ($vParameters==="editar") {
+
+    $dadosForm = [];
+
+    $query = $conn->query("SELECT profissionais.*, especialidades.especialidade FROM profissionais INNER JOIN especialidades ON profissionais.id_especialidade=especialidades.id WHERE profissionais.id=$id_profissional");
+      
+        $re = mysqli_fetch_array($query);
+      
+        $dadosForm = $re;
+    
+    mysqli_free_result($query);
+  
+  
 } else if ($vParameters==="salvar") {
     
     $dadosForm = $_POST;
@@ -41,26 +54,68 @@ if ($vParameters==="novo") {
     $vData = date("Y-m-d H:i:s");
 
     if (empty($vAlerta)) {
-    
-        $valores = "0" . (int)$dadosForm['especialidade'] . ",";
-        $valores .= "'" . $dadosForm['nome'] . "',";
-        $valores .= "'" . $dadosForm['sexo'] . "',";
-        $valores .= "'" . date("Y-m-d", strtotime($dadosForm['data_nasc'])) . "',";
-        $valores .= "'" . $dadosForm['documento_tipo'] . "',";
-        $valores .= "'" . $dadosForm['documento_numero'] . "',";
-        $valores .= "'',";
-        $valores .= "'" . $vData . "'";
 
-        $campos = "id_especialidade, nome, sexo, data_nascimento, documento_tipo, documento_numero, status, data_cad";
+        if ($dadosForm['acao']==="novo") {
 
-        try{
-        
-            $conn->query("INSERT INTO profissionais ($campos) VALUES ($valores)");
+            $valores = "0" . (int)$dadosForm['especialidade'] . ",";
+            $valores .= "'" . $dadosForm['nome'] . "',";
+            $valores .= "'" . $dadosForm['sexo'] . "',";
+            $valores .= "'" . date("Y-m-d", strtotime($dadosForm['data_nasc'])) . "',";
+            $valores .= "'" . $dadosForm['documento_tipo'] . "',";
+            $valores .= "'" . $dadosForm['documento_numero'] . "',";
+            $valores .= "'',";
+            $valores .= "'" . $vData . "'";
 
-        } catch (Exception $e) {
-            $vAlerta = $e->getMessage();
+            $campos = "id_especialidade, nome, sexo, data_nascimento, documento_tipo, documento_numero, status, data_cad";
+
+            try{
+            
+                $conn->query("INSERT INTO profissionais ($campos) VALUES ($valores)");
+                
+                $profissionais = $conn->query("SELECT id FROM profissionais 
+                            WHERE nome='" . $dadosForm['nome'] . "' 
+                            AND documento_numero='" . $dadosForm['documento_numero'] . "' 
+                            AND data_cad='" .  $vData . "'");
+                        
+                    $re = mysqli_fetch_array($profissionais);
+
+                    $id_profissional = $re['id'];
+            
+                mysqli_free_result($profissionais);
+
+
+            } catch (Exception $e) {
+                $vAlerta = $e->getMessage();
+
+            }
+
+        } else {
+
+            try{
+              
+                $where = " WHERE id=" . $dadosForm['id_profissional'];
+
+                $sql = "UPDATE profissionais SET 
+                    id_especialidade=0" . (int)$dadosForm['especialidade']  . ", 
+                    nome='" . $dadosForm['nome'] . "', 
+                    sexo='" . $dadosForm['sexo'] . "', 
+                    data_nascimento='" . date("Y-m-d", strtotime($dadosForm['data_nasc'])) . "', 
+                    documento_tipo='" . $dadosForm['documento_tipo'] . "', 
+                    documento_numero='" . $dadosForm['documento_numero'] . "' 
+                    $where";
+
+                $conn->query($sql);
+                            
+                $id_profissional =  $dadosForm['id_profissional'];
+
+
+            } catch (Exception $e) {
+                $vAlerta = $e->getMessage();
+
+            }
 
         }
+
     }
 
 

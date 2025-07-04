@@ -36,38 +36,40 @@
 
 					<table cellspacing="0" cellpadding="0" class="mn-table">
 						<tr class="mn-row">
-							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Agenda&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-filter"></i></a></td>
+							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Agenda&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-book-medical"></i></a></td>
 							<td class="mn-opc"><a href="<?=URL?>/office/Agenda&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content">Agenda</a></td>
 						</tr>
 						<tr class="mn-row">
-							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Agendamento&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-filter"></i></a></td>
+							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Agendamento&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-edit"></i></a></td>
 							<td class="mn-opc"><a href="<?=URL?>/office/Agendamento&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content">Agendamento</a></td>
 						</tr>
 						<tr class="mn-row">
-							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Pacientes&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-file-invoice-dollar"></i></a></td>
+							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Pacientes&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-id-card-alt"></i></a></td>
 							<td class="mn-opc"><a href="<?=URL?>/office/Pacientes&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content">Pacientes</a></td>
 						</tr>
 						<tr class="mn-row">
-							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Profissionais&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-file-invoice-dollar"></i></a></td>
+							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Profissionais&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-graduation-cap"></i></a></td>
 							<td class="mn-opc"><a href="<?=URL?>/office/Profissionais&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content">Profissionais</a></td>
 						</tr>
 						<tr class="mn-row">
-							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Especialidades&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-file-invoice-dollar"></i></a></td>
+							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/Especialidades&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-briefcase-medical"></i></a></td>
 							<td class="mn-opc"><a href="<?=URL?>/office/Especialidades&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content">Especialidades</a></td>
 						</tr>
+
 						<?php
-						//if ($dados['Mestre']==='S') {
+						if ($dados['Adm']==='S') {
 							?>
 							<tr class="mn-row">
-								<td width="40px" class="mn-icone"><a href="<?=URL?>/office/usuarios" class="menu" target="area_content"><i class="fas fa-users"></i></a></td>
-								<td class="mn-opc"><a href="<?=URL?>/office/usuarios" class="menu" target="area_content">Usuários</a></td>
+								<td width="40px" class="mn-icone"><a href="<?=URL?>/office/usuarios&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-users"></i></a></td>
+								<td class="mn-opc"><a href="<?=URL?>/office/usuarios&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content">Usuários</a></td>
 							</tr>
 							<?php 
-						//}
+						}
 						?>
+
 						<tr class="mn-row">
-							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/trocar_senha" class="menu" target="area_content"><i class="fas fa-user-lock"></i></a></td>
-							<td class="mn-opc"><a href="<?=URL?>/office/trocar_senha" class="menu" target="area_content">Trocar Senha</a></td>
+							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/trocar_senha&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content"><i class="fas fa-user-lock"></i></a></td>
+							<td class="mn-opc"><a href="<?=URL?>/office/trocar_senha&idu=<?=codigoHash($dados['Id'])?>" class="menu" target="area_content">Trocar Senha</a></td>
 						</tr>
 						<tr class="mn-row">
 							<td width="40px" class="mn-icone"><a href="<?=URL?>/office/logout" class="menu" target="area_content"><i class="fas fa-power-off"></i></a></td>

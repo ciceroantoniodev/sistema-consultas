@@ -8,7 +8,8 @@ $dados = explode("|", $codigo);
 
 $dados = [
     "Id" => (int)$dados[0], 
-    "Nome" => $dados[1]
+    "Nome" => $dados[1],
+    "Adm" => $dados[2]
 ];
 
 include_once(LOCAL . "/app/config/includes/funcoes.php");

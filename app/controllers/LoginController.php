@@ -25,10 +25,12 @@ if($usuario && $senha) {
 
             $_SESSION['id'] = $re['id'];
             $_SESSION['nome'] = $re['nome'];
+            $_SESSION['Administrador'] = $re['adm'];
             $_SESSION['acesso'] = time();
 
             $codigo = (int)$re['id'] . "|" . 
-                    str_replace("|", "", trim($re["nome"]));
+                    str_replace("|", "", trim($re["nome"])) . "|" .
+                    str_replace("|", "", trim($re["adm"]));
 
             $codigo = base64_encode(base64_encode($codigo));
 

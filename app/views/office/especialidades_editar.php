@@ -24,7 +24,9 @@
                         <a href="<?=URL?>/Office/Inicio" class="links"><span>INÍCIO</span></a> | 
                         <a href="<?=URL?>/Office/Especialidades" class="links"><span>ESPECIALIDADES</span></a> 
                     </div>
-                    <h2>Cadastrar Nova Especialidade</h2><br>
+                    <h2></h2><br>
+                    <h2><?=($acao==="consultar" ? 'Consultar Dados da Especialidade' : ($acao==="alterar" ? 'Atualizar Dados da Especialidade' : 'Cadastrar Nova Especialidade'))?></h2><br>
+
                 </div>
             </div>  
             <div class="row">
@@ -32,11 +34,12 @@
                     
                     <form method="post" action="<?=URL?>/Office/Especialidades/Salvar">
                         <input type="hidden" id="acao" name="acao" value="<?=$acao?>">
+                        <input type="hidden" id="acao" name="id_especialidade" value="<?=$id_especialidade?>">
 
                         <?php 
                         if ($acao==="consultar" || $acao==="alterar") {
                             ?>
-                            <h6 style="margin-bottom: 20px">Código: <span class="text-info"><?=$dados['codigo']?></span></h6>
+                            <h6 style="margin-bottom: 20px">Código: <span class="text-info"><?=str_pad($id_especialidade, 4, "0", STR_PAD_LEFT)?></span></h6>
                             <?php
                         }
                         ?>
@@ -48,7 +51,7 @@
                                     <div class="row mb-3">
                                         <div class="col">
                                             <label for="especialidade" class="form-label">Nome da Especialidade:</label>
-                                            <input type="text" id="especialidade" name="especialidade" class="form-control" value="<?=(isset($dadosForm['nome']) ? $dadosForm['nome'] : '')?>"/>
+                                            <input type="text" id="especialidade" name="especialidade" class="form-control" value="<?=(isset($dadosForm['especialidade']) ? $dadosForm['especialidade'] : '')?>"/>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -68,17 +71,14 @@
                                 <?php
                                 if ($acao==="consultar") {
                                     ?>
-                                    <a href="<?=URL?>/Office/Usuarios/Editar&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>&cod=<?=codigoHash($codigo_usuario)?>&acao=alterar" class="btn btn-primary">Alterar Dados</a>
-                                    <button type="button" class="btn btn-danger" >Bloquear</button>
-                                    <button type="button" class="btn btn-warning" >Resetar Senha</button>
-                                    <button type="button" class="btn btn-info" >Reenviar Validação</button>
-                                    <a href="<?=URL?>/Office/Usuarios&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>" class="btn btn-secondary">Voltar</a>
+                                    <a href="<?=URL?>/Office/Especialidades/Editar&idu=<?=codigoHash($id_usuario)?>&ide=<?=codigoHash($id_especialidade)?>&acao=alterar" class="btn btn-primary">Alterar Dados</a>
+                                    <a href="<?=URL?>/Office/Especialidades&idu=<?=codigoHash($id_usuario)?>" class="btn btn-secondary">Voltar</a>
                                     <?php
 
                                 } else if($acao==="novo" || $acao==="alterar") {
                                     ?>
                                     <input type="submit" class="btn btn-success btn-lg" value="Salvar Dados"/>
-                                    <a href="<?=URL?>/Office/Usuarios&rv=<?=codigoHash($revenda)?>&idu=<?=codigoHash($id_user)?>" class="btn btn-secondary btn-lg">Voltar</a>
+                                    <a href="<?=URL?>/Office/Especialidades&idu=<?=codigoHash($id_usuario)?>" class="btn btn-secondary btn-lg">Voltar</a>
                                     <?php
                                 }
                                 ?>
