@@ -1,0 +1,93 @@
+/* 
+1200px – Desktops, notebooks com monitores widescreen
+***********************************************************/
+@media screen and (max-width:1200px){
+
+}
+
+/* 
+1000px – Desktops, notebooks com monitores widescreen
+***********************************************************/
+@media screen and (max-width:1040px){
+	
+}
+
+/* 
+960px – Tablets no formato paisagem e alguns monitores mais antigos
+***********************************************************/
+@media screen and (max-width:960px){
+
+}
+
+/* 
+840px – Tablets no formato paisagem e alguns monitores mais antigos
+***********************************************************/
+@media screen and (max-width:840px){
+	
+}
+
+/* 
+770px – Tablets no formato retrato, como o iPad
+***********************************************************/
+@media screen and (max-width:770px){
+	.main {
+		display: table;
+		padding-bottom: 20px;
+		width: 100%;
+	}
+
+	.header {
+		height: 250px;
+		width: 100%;
+	}
+
+	.header > h2 {
+		font-size: 38px;
+		line-height: 40px;
+	}
+
+	.area {
+		display: table;
+		border-radius: 10px;
+		flex: 1;
+		height: 250px;
+		margin: auto;
+		margin-bottom: 20px;
+		padding: 20px;
+		width: 80%;
+	}
+
+}
+
+
+/* 
+320px – Smartphones no formato retrato com tela pequena
+***********************************************************/
+@media screen and (max-width:360px){
+	.main {
+		display: table;
+		padding-bottom: 20px;
+		width: 100%;
+	}
+
+	.header {
+		height: 250px;
+		width: 100%;
+	}
+
+	.header > h2 {
+		font-size: 38px;
+		line-height: 40px;
+	}
+
+	.area {
+		display: table;
+		border-radius: 10px;
+		flex: 1;
+		height: 250px;
+		margin: auto;
+		margin-bottom: 20px;
+		padding: 20px;
+		width: 80%;
+	}
+}

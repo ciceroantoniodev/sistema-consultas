@@ -22,8 +22,9 @@ body {
 
 .header > h2 {
 	color: #ffffff;
-	font-size: 72px;
+	font-size: 62px;
 	font-weight: bold;
+	line-height: 55px;
 	margin: 0px;
 	padding: 0px;
 	text-align: center;
