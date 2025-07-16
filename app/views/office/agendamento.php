@@ -36,6 +36,12 @@
 
                         <?php 
                         if ($acao==="consultar" || $acao==="alterar") {
+
+                            if ($dados['data_agendamento'] < date("Y-m-d")) {
+                                echo '<input type="hidden" name="agendamento_vencido" value="sim">';
+
+                            }
+
                             ?>
                             <h6 style="margin-bottom: 20px">Código: <span class="text-info"><?=str_pad($dados['id'], 5, "0", STR_PAD_LEFT)?></span></h6>
                             <?php
@@ -45,7 +51,7 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
 
-                                <fieldset<?=($acao==="consultar" ? " disabled" : "")?>>
+                                <fieldset<?=($acao==="consultar" ? " disabled" : ($acao==="alterar" && $dados['data_agendamento'] < date("Y-m-d") ? ' disabled' : ''))?>>
                                     <div class="row mb-3">
                                         <div class="col">
                                             <label for="paciente" class="form-label">Nome do Paciente:</label>
@@ -141,7 +147,7 @@
                                         <br><label for="status" class="form-label">STATUS:</label>
                                         <select name="status" id="status" class="<?=($acao==="consultar" ? 'form-control' : 'form-select')?>" required>
                                             <option value="aberto"<?=(isset($dados['status']) ? ($dados['status']==="aberto" ? ' selected': '') : '')?>>EM ABERTO</option>
-                                            <option value="cancelado"<?=(isset($dados['status']) ? ($dados['status']==="cancelado" ? ' selected': '') : '')?>>AGENDAMENTO cancelado</option>
+                                            <option value="cancelado"<?=(isset($dados['status']) ? ($dados['status']==="cancelado" ? ' selected': '') : '')?>>AGENDAMENTO CANCELADO</option>
                                             <option value="atendido"<?=(isset($dados['status']) ? ($dados['status']==="atendido" ? ' selected': '') : '')?>>PACIENTE ATENDIDO</option>
                                         </select>
                                         <?php
@@ -163,8 +169,14 @@
 
                                 <?php
                                 if ($acao==="consultar") {
+                                    
+                                    if ($dados['status']==="aberto") {
+                                        ?>
+                                        <a href="<?=URL?>/Office/Agendamento&idu=<?=codigoHash($id_usuario)?>&ida=<?=codigoHash($codigo_agenda)?>&acao=alterar" class="btn btn-primary">Atualizar Dados</a>
+                                        <?php
+                                    }
                                     ?>
-                                    <a href="<?=URL?>/Office/Agendamento&idu=<?=codigoHash($id_usuario)?>&ida=<?=codigoHash($codigo_agenda)?>&acao=alterar" class="btn btn-primary">Atualizar Dados</a>
+
                                     <a href="<?=URL?>/Office/Agenda&idu=<?=codigoHash($id_usuario)?>" class="btn btn-secondary">Voltar Para Agenda</a>
                                     <?php
 

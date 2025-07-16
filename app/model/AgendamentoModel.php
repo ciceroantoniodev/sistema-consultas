@@ -33,15 +33,41 @@ if ($acao==="consultar" || $acao==="alterar") {
 
   if ($dadosForm['acao']==="novo") {
     if (empty($dadosForm['paciente'])) { $vAlerta .= "<div>O campo <strong>Nome do Paciente</strong> n&atilde;o pode ser vazio.</div>"; }
+    if (empty($dadosForm['data_agendamento'])) { $vAlerta .= "<div>O campo <strong>Data do Agendamento</strong> n&atilde;o pode ser vazio.</div>"; }
+    if (empty($dadosForm['hora_agendamento'])) { $vAlerta .= "<div>O campo <strong>Hor&aacute;rio do Agendamento</strong> n&atilde;o pode ser vazio.</div>"; }
+    if (empty($dadosForm['profissional'])) { $vAlerta .= "<div>o Campo <strong>Profissional Médico</strong> n&atilde;o pode ser vazio.</div>"; }
+    if (empty($dadosForm['agendamento_tipo'])) { $vAlerta .= "<div>o Campo <strong>Agendamento do Tipo</strong> n&atilde;o pode ser vazio.</div>"; }
 
+    if (empty($vAlerta)) {
+      if ($dadosForm['data_agendamento'] < date("Y-m-d")) {
+        $vAlerta = "<div>A <strong>Data do Agendamento</strong> precisa ser maior que a data atual.</div>";
+
+      }
+    }
+
+  } else {
+
+    if (isset($dadosForm['agendamento_vencido']) && $dadosForm['agendamento_vencido']==="sim") {
+        if (empty($dadosForm['obs'])) { $vAlerta .= "<div>O campo <strong>Observa&ccedil;&atilde;o</strong> n&atilde;o pode ser vazio.</div>"; }
+
+    } else {
+      if (empty($dadosForm['data_agendamento'])) { $vAlerta .= "<div>O campo <strong>Data do Agendamento</strong> n&atilde;o pode ser vazio.</div>"; }
+      if (empty($dadosForm['hora_agendamento'])) { $vAlerta .= "<div>O campo <strong>Hor&aacute;rio do Agendamento</strong> n&atilde;o pode ser vazio.</div>"; }
+      if (empty($dadosForm['profissional'])) { $vAlerta .= "<div>o Campo <strong>Profissional Médico</strong> n&atilde;o pode ser vazio.</div>"; }
+      if (empty($dadosForm['agendamento_tipo'])) { $vAlerta .= "<div>o Campo <strong>Agendamento do Tipo</strong> n&atilde;o pode ser vazio.</div>"; }
+      if (empty($dadosForm['obs'])) { $vAlerta .= "<div>O campo <strong>Observa&ccedil;&atilde;o</strong> n&atilde;o pode ser vazio.</div>"; }
+
+      if ($dadosForm['data_agendamento'] < date("Y-m-d")) {
+        $vAlerta = "<div>A <strong>Data do Agendamento</strong> precisa ser maior que a data atual.</div>";
+
+      }
+
+    }
   }
 
-  if (empty($dadosForm['data_agendamento'])) { $vAlerta .= "<div>O campo <strong>Data do Agendamento</strong> n&atilde;o pode ser vazio.</div>"; }
-  if (empty($dadosForm['hora_agendamento'])) { $vAlerta .= "<div>O campo <strong>Hor&aacute;rio do Agendamento</strong> n&atilde;o pode ser vazio.</div>"; }
-  if (empty($dadosForm['profissional'])) { $vAlerta .= "<div>o Campo <strong>Profissional Médico</strong> n&atilde;o pode ser vazio.</div>"; }
-  if (empty($dadosForm['agendamento_tipo'])) { $vAlerta .= "<div>o Campo <strong>Agendamento do Tipo</strong> n&atilde;o pode ser vazio.</div>"; }
 
   $vData = date("Y-m-d H:i:s");
+
 
   if (empty($vAlerta)) {
 
@@ -86,15 +112,24 @@ if ($acao==="consultar" || $acao==="alterar") {
       try{
         
         $where = " WHERE id=" . $dadosForm['id_agenda'];
+        
+        if (isset($dadosForm['agendamento_vencido']) && $dadosForm['agendamento_vencido']==="sim") {
+          $sql = "UPDATE agenda SET 
+              obs='" . $dadosForm['obs'] . "', 
+              status='" . $dadosForm['status'] . "' 
+              $where";
 
-        $sql = "UPDATE agenda SET 
-            id_profissional=0" . $dadosForm['profissional'] . ", 
-            data_agendamento='" . date("Y-m-d", strtotime($dadosForm['data_agendamento'])) . "', 
-            hora_agendamento='" . date("H:i:s", strtotime($dadosForm['hora_agendamento'])) . "', 
-            tipo_agendamento='" . $dadosForm['agendamento_tipo'] . "', 
-            obs='" . $dadosForm['obs'] . "', 
-            status='" . $dadosForm['status'] . "' 
-            $where";
+        } else {
+          $sql = "UPDATE agenda SET 
+              id_profissional=0" . $dadosForm['profissional'] . ", 
+              data_agendamento='" . date("Y-m-d", strtotime($dadosForm['data_agendamento'])) . "', 
+              hora_agendamento='" . date("H:i:s", strtotime($dadosForm['hora_agendamento'])) . "', 
+              tipo_agendamento='" . $dadosForm['agendamento_tipo'] . "', 
+              obs='" . $dadosForm['obs'] . "', 
+              status='" . $dadosForm['status'] . "' 
+              $where";
+
+        }
 
         $conn->query($sql);
         
