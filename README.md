@@ -38,7 +38,7 @@ _Após fazer o clone do projeto_
 Certifique-se de ter instalado um servidor Apache para acesso ao sistema, visto que o mesmo utiliza a linguagem PHP e banco de dados MySQL. Para o desenvolvimento local do projeto, utilizei o pacote WAMPServer em ambiente Windows.
 
 1) Baixe e instale o WAMPServer
-2) Copie o projeto para a pasta __wwww__, que deve estar na pasta __wamp64__.
+2) Copie o projeto para a pasta __www__, que deve estar na pasta __wamp64__.
 3) No navegador acesse __http://localhost/sistema-consultas__.
 4) Para usuário e senha utilize:
 
