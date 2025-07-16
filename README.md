@@ -7,3 +7,5 @@ Este documento apresenta o desenvolvimento de um Sistema Gerenciador de Consulta
 ## Fundamentação
 
 A escolha por um modelo baseado em programação procedural estruturada demonstra que, mesmo fora do paradigma orientado a objetos, é possível manter uma arquitetura sólida e eficiente, desde que sejam aplicadas boas práticas de desenvolvimento. Neste projeto, a organização do sistema respeitou o padrão MVC (Model-View-Controller), promovendo uma separação funcional entre lógica de negócios, exibição e controle, o que favorece a manutenção e expansão do sistema. O uso do PHP como linguagem de desenvolvimento está alinhado com a proposta de acessibilidade e simplicidade. Trata-se de uma linguagem amplamente difundida, com vasta documentação, que permite a criação de sistemas dinâmicos e escaláveis. Combinado a um banco de dados como MySQL, o sistema torna-se robusto o suficiente para atender pequenas clínicas e consultórios.
+
+# Instalação
