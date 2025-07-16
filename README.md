@@ -9,3 +9,27 @@ Este documento apresenta o desenvolvimento de um Sistema Gerenciador de Consulta
 A escolha por um modelo baseado em programação procedural estruturada demonstra que, mesmo fora do paradigma orientado a objetos, é possível manter uma arquitetura sólida e eficiente, desde que sejam aplicadas boas práticas de desenvolvimento. Neste projeto, a organização do sistema respeitou o padrão MVC (Model-View-Controller), promovendo uma separação funcional entre lógica de negócios, exibição e controle, o que favorece a manutenção e expansão do sistema. O uso do PHP como linguagem de desenvolvimento está alinhado com a proposta de acessibilidade e simplicidade. Trata-se de uma linguagem amplamente difundida, com vasta documentação, que permite a criação de sistemas dinâmicos e escaláveis. Combinado a um banco de dados como MySQL, o sistema torna-se robusto o suficiente para atender pequenas clínicas e consultórios.
 
 # Instalação
+
+## Instação do projeto via repositório Git
+
+_Certifique-se de ter o GIT instalado_.
+
+1) Abra o terminal: windows + R + digite CMD
+2) Crie uma para seus projetos
+3) Acesse a pasta criada
+4) Faça o clone do repositório utiizando git clone
+   
+...
+git clone git@github.com:ciceroantoniodev/sistema-consultas.git
+...
+
+## Instação do bando de dados
+
+_Após fazer o clone do projeto_
+
+1) Acesse a pasta __DB__ do projeto __sistema-consultas__.
+2) Nesta pasta terá o arquivo __sistema_consulyas.sql__ que deverá ser importado através do phpMyAdmin.
+3) Através do phpMyAdmin crie o banco de dados __sistema_consultas__.
+4) Faça a importação do arquivo __sistemas_consultas.sql__ que contém as tabelas do banco de dados.
+
+#Como Acessar o Sistema
