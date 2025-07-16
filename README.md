@@ -11,7 +11,7 @@ A escolha por um modelo baseado em programação procedural estruturada demonstr
 
 # Instalação
 
-## Instação do projeto via repositório Git
+## Instalação do projeto via repositório Git
 
 _Certifique-se de ter o GIT instalado_.
 
@@ -24,7 +24,7 @@ _Certifique-se de ter o GIT instalado_.
 git clone git@github.com:ciceroantoniodev/sistema-consultas.git
 ```
 
-## Instação do bando de dados
+## Instalação do banco de dados
 
 _Após fazer o clone do projeto_
 
